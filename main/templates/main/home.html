@@ -1,0 +1,98 @@
+{% extends 'main/base.html' %}
+{% block title %} {{ user }} {% endblock %}
+{% load static %}
+{% block content %}
+<style type="text/css">
+    .dnd {display: none;}
+    .dnb {display: block;}
+    .dni {display: inline;}
+    .dnib {display: inline-block;}
+    table thead .bold {font-weight: bold;}
+    .bold {font-weight: bold;}
+    .fillru {background-color: #000; }
+    .mt10 {margin-top: 10px;}
+    .modal-body span {font-size: 14px; color: #000; text-transform: uppercase;}
+    .sub-set-wrap {margin: 9px 2px 0;}
+  </style>
+  	<header class="topbar">
+        <nav class="navbar top-navbar navbar-expand-md navbar-light">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                    <img src="/assets/logo-white.svg" alt="homepage" style="width: 92px;" />
+                </a>
+            </div>
+            <div class="navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                </ul>
+                <ul class="navbar-nav my-lg-0 mr-2">
+                    <li class="nav-item">
+                        
+                        <a class="nav-link waves-effect waves-dark" href="/login" aria-haspopup="true" aria-expanded="false">
+                            <span class="usr-name">{{ user }}</span> &nbsp;<i class="fa fa-sign-out"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+  	<!-- 
+        Preloader, и вообще нжуно продумать систему ленивых загрузок
+    -->
+
+    <span style="opacity: 0; max-height: 0.1px;">&nbsp;</span>
+    <div class="page-wrapper">
+        <div class="container-fluid">
+            <div class="row page-titles">
+                <div class="col-md-12 align-self-center welcome-desc">
+                    <h5 class="card-title"><b>СИСТЕМА МОНИТОРИНГА ОСТАТКОВ</b></h5>
+                <!--                                         
+                    <h6 class="card-subtitle text-uppercase dark">Отобразить настройки</h6> 
+                -->
+                </div>
+            </div>
+
+                    <div class="card">
+                        <!-- 
+                            Если нажали на кнопку отображения настроек 
+                        -->
+                        <div class="card-body">
+                            
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="table-responsive mt10">
+                                        <table class="table table-hover">
+                                            <!-- 
+                                                Нужно добавить опции, чтобы в зависимости от чекбоксов - отображались соответствующие данные (маски) 
+                                            -->
+                                            <thead class="table-dark">
+                                                <tr class="bold">
+                                                    <th class="prodnumb bold text-center" width="1"><b>#</b></th>
+                                                    <th class="prodname bold"><b>НАИМЕНОВАНИЕ </b></th>
+                                                    <th class="prodcode bold sm-hide" width="10">ШТРИХКОД</th>
+                                                    <th class="fillru bold" width="1"><b>FILLRU</b></th>
+                                                
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+{% for product in products|dictsortreversed:"Количество" %}
+    <tr>
+        <td class="text-center">{{ forloop.counter }}</td>
+        <td class="txt-oflo">{{ product.Имя }}</td>
+        <td class="txt-sucess">{{ product.Артикул }}</td>
+        <td><span class="text-success">{{ product.Количество|floatformat|floatformat:0 }}</span></td>
+        <td class="dnd"><span>-</span></td>
+        <td class="dnd"><span>-</span></td>
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<footer class="footer">
+Все права сохранены и защищены © <a href="#">«Fillru»</a>, Москва, 2023
+</footer>
+{% endblock %}
